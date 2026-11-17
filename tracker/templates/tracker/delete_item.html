@@ -1,0 +1,14 @@
+{% extends 'tracker/base.html' %}
+
+{% block title %}Delete expense{% endblock %}
+
+{% block content %}
+<div class="col-md-6 mx-auto text-center">
+  <h4 class="mb-3">Are you sure you want to delete "{{ obj.Expense_reason }}" (Rs. {{ obj.Amount }})?</h4>
+  <form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Yes, delete</button>
+    <a class="btn btn-outline-secondary" href="{% url 'index' %}">Cancel</a>
+  </form>
+</div>
+{% endblock %}

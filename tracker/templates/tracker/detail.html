@@ -1,0 +1,18 @@
+{% extends 'tracker/base.html' %}
+
+{% block title %}Expense details{% endblock %}
+
+{% block content %}
+<div class="col-md-6 mx-auto">
+  <h3 class="mb-3">Expense details</h3>
+  <table class="table table-bordered">
+    <tr><th style="width: 140px;">Reason</th><td>{{ obj.Expense_reason }}</td></tr>
+    <tr><th>Amount</th><td>Rs. {{ obj.Amount }}</td></tr>
+    {% if obj.Image %}
+    <tr><th>Image</th><td><img src="{{ obj.Image }}" alt="No image" class="img-fluid" style="max-height: 200px;"></td></tr>
+    {% endif %}
+  </table>
+  <a class="btn btn-outline-secondary" href="{% url 'index' %}">Back</a>
+  <a class="btn btn-outline-success" href="{% url 'update_item' obj.id %}">Update</a>
+</div>
+{% endblock %}

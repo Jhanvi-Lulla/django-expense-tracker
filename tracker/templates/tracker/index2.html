@@ -1,0 +1,55 @@
+{% extends 'tracker/base.html' %}
+
+{% block title %}My Expenses{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+  <h3 class="m-0">My Expenses</h3>
+  <form method="GET" class="d-flex gap-2">
+    <input type="text" name="search" value="{{ query }}" class="form-control" placeholder="Search expense...">
+    <button class="btn btn-outline-secondary" type="submit">Search</button>
+  </form>
+</div>
+
+<table class="table table-bordered text-center align-middle">
+  <thead class="table-light">
+    <tr>
+      <th style="width: 60px;">#</th>
+      <th>Expense reason</th>
+      <th style="width: 110px;">Amount</th>
+      <th>Actions</th>
+      <th>Image</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for expense in expense_list %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td><a href="{% url 'detail' expense.id %}">{{ expense.Expense_reason }}</a></td>
+      <td>{{ expense.Amount }}</td>
+      <td>
+        <a class="btn btn-sm btn-outline-success" href="{% url 'update_item' expense.id %}">Update</a>
+        <a class="btn btn-sm btn-outline-danger" href="{% url 'delete_item' expense.id %}">Delete</a>
+      </td>
+      <td>
+        {% if expense.Image %}
+        <img height="100" width="100" style="object-fit: cover;" src="{{ expense.Image }}" alt="No image">
+        {% endif %}
+      </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5" class="text-muted">No expenses yet. Click "Add Item" to start.</td></tr>
+    {% endfor %}
+  </tbody>
+  <tfoot>
+    <tr class="table-light">
+      <td colspan="2" class="text-end"><b>Total</b></td>
+      <td><b>{{ total_sum }}</b></td>
+      <td colspan="2"></td>
+    </tr>
+  </tfoot>
+</table>
+
+<a class="btn btn-primary" href="{% url 'add_item' %}">Add Item</a>
+<a class="btn btn-outline-danger" href="{% url 'pdf' %}">Total Expenses</a>
+{% endblock %}
